@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <iostream>
 
-class ValueNotFoundException : std::exception
+class ValueNotFoundException : public std::exception
 {
     public:
         virtual const char *what() const throw()
