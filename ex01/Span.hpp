@@ -6,32 +6,6 @@
 #include <iostream>
 #include <exception>
 
-class Span
-{
-    public:
-        Span(unsigned int n);
-        Span(const Span &copy);
-        Span &operator=(const Span &other);
-        ~Span();
-
-        void addNumber(unsigned int value);
-
-        template<typename Iterator>
-        void addNumbers(Iterator begin, Iterator end)
-        {
-            if (std::distance(begin,end) + _vec.size() > _n)
-                throw SpanFullException();
-
-            _vec.insert(_vec.end, begin, end);
-        }
-
-        unsigned int longestSpan() const;
-        unsigned int shortestSpan() const;
-    
-    private:
-        unsigned int        _n;
-        std::vector<int>    _vec;
-};
 
 class SpanFullException : public std::exception
 {
@@ -49,6 +23,33 @@ class NoSpanException : public std::exception
         {
             return "Valor nao encontrado!";
         }
+};
+
+class Span
+{
+    public:
+        Span(unsigned int n);
+        Span(const Span &copy);
+        Span &operator=(const Span &other);
+        ~Span();
+
+        void addNumber(unsigned int value);
+
+        template<typename Iterator>
+        void addNumbers(Iterator begin, Iterator end)
+        {
+            if (std::distance(begin,end) + _vec.size() > _n)
+                throw SpanFullException();
+
+            _vec.insert(_vec.end(), begin, end);
+        }
+
+        unsigned int longestSpan() const;
+        unsigned int shortestSpan() const;
+    
+    private:
+        unsigned int        _n;
+        std::vector<int>    _vec;
 };
 
 #endif
